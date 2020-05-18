@@ -1,79 +1,61 @@
 @extends('layouts.app')
 @section('content')
 <br><br><br>
-<div>
-    <div class="card">
-  <div class="card-body">
-      <h5 class="card-title">Add Question</h5>
-<form method="POST" enctype="multipart/form-data" action="/question">
-    @csrf
-  <div class="form-group">
-    <label for="formGroupQuestionTitleInput">Question Title</label>
-    <input type="text" name="title" class="form-control" id="formGroupQuestionTitleInput" placeholder="Question Title" required>
-  </div>
-  <div class="form-group">
-    <label for="companyname">Company Name</label>
-    <input type="text" name="companyname" class="form-control" id="companyname" placeholder="Company Name">
-  </div>
-  <div class="form-group">
-    <label for="companylogo">Company Logo (32x32 px)</label>
-    <input type="file" name="companyimage" class="form-control-file" id="companylogo">
-  </div>
-  <div class="form-group">
-  <label for="modeofresponse">Mode of Response</label>
-      <select class="custom-select mr-sm-2" id="modeofresponse">
-        <option selected>Choose...</option>
-        <option value="Record video">Record video</option>
-        <option value="Answer survey questions">Answer survey questions</option>
-      </select>
-  </div>
-  <div class="form-group">
-    <label for="awardamount">Award Amount</label>
-    <input type="text" name="awardamount" class="form-control" id="awardamount" placeholder="Award amount" required>
-  </div>
-   <div class="form-group">
-       <label for="questionDescriptionTextarea">Question Description</label>
-    <textarea class="form-control" name="description" id="questionDescriptionTextarea" placeholder=" Question description i.e question content." required></textarea>
-   </div>
-   <div class="form-group">
-  <button type="submit" class="btn btn-primary">Submit</button>
-   </div>
-</form>
-  </div>
-    </div>
+
+<br>
+<br>
+<div class="table-responsive">
+    <h5 class="title">Question in Database</h5>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Mode of Response</th>
+                <th scope="col">Company Name</th>
+                <th scope="col">Award Amount</th>
+                <th scope="col">Created</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php $index =0; @endphp
+            @foreach ($questions as $question)
+            @php $index = ++$index; @endphp
+            <tr>
+                <th scope="row"> {{$index }}</th>
+                <td>{{ $question->title }}</td>
+                <td>{{ $question->description }}</td>
+                <td>{{ $question->mode_of_response }}</td>
+                <td>{{ $question->companyname }}</td>
+                <td>{{ $question->award_amount }}</td>
+                <td>{{ $question->created_at }}</td>
+                <td><a href="{{ route('question.edit',$question->id) }}"><svg class="bi bi-pencil-square success"
+                            width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z" />
+                            <path fill-rule="evenodd"
+                                d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z"
+                                clip-rule="evenodd" />
+                        </svg></a>
+                    <form method="POST" action="{{ route('question.destroy',$question->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger"><svg class="bi bi-trash" width="1em" height="1em"
+                                viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
+                                <path fill-rule="evenodd"
+                                    d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                                    clip-rule="evenodd" />
+                            </svg></button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
-<br>
-<br>
- <div class="table-responsive">
-     <h5 class="title">Question in Database</h5>
-     <table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
- </div>
 @endsection

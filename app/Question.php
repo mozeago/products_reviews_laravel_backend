@@ -12,6 +12,6 @@ class Question extends Model
         'mode_of_response',
         'companyimage',
         'companyname',
-        'award_amount'
-    ]
+        'award_amount',
+    ];
 }

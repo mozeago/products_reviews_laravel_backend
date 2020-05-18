@@ -14,7 +14,7 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        return view('questionslist', ['question',Question::all()]);
+        return view('questionslist', ['questions' => Question::all()]);
     }
 
     /**
@@ -24,7 +24,7 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('questioncreate');
     }
 
     /**
@@ -35,14 +35,32 @@ class QuestionsController extends Controller
      */
     public function store(Request $request)
     {
-        $company_image=$request->file('companyimage');
-        $company_image->nam
-        $company_image->storeAs('uploads',)
-        $title=$request->title;
-        $description=$request->title;
-        $title=$request->title;
-        $title=$request->title;
-        $title=$request->title;
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'mode_of_response' => 'required',
+            'companyname' => 'required',
+            'companyimage' => 'required',
+            'award_amount' => 'required',
+        ]);
+
+        if (!empty($image_name)) {
+            $image_name = time() . $request->companyname . '.' . $request->file('companyimage')->getClientOriginalExtension();
+
+            if ($request->companyimage->move('uploads', $image_name)) {
+                Question::create(
+                    [
+                        'title' => $request->title,
+                        'description' => $request->description,
+                        'mode_of_response' => $request->mode_of_response,
+                        'companyname' => $request->companyname,
+                        'companyimage' => $image_name,
+                        'award_amount' => $request->award_amount,
+                    ]
+                );
+            }
+        }
+        return view('questioncreate');
     }
 
     /**
@@ -64,7 +82,7 @@ class QuestionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('questioncreate', ['question' => Question::find($id)]);
     }
 
     /**
@@ -82,11 +100,13 @@ class QuestionsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        // $question=new Question::find($id);
+        // $question->delete();
+        return view('questionslist')->with('success', 'Question Deleted !');
     }
 }
