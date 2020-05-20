@@ -82,31 +82,64 @@ class QuestionsController extends Controller
      */
     public function edit($id)
     {
-        return view('questioncreate', ['question' => Question::find($id)]);
+        $question = Question::find($id);
+        return view('questionedit', ['question' => $question]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $image_name = '';
+        $request->validate(
+            [
+                'title' => 'required',
+                'description' => 'required',
+                'mode_of_response' => 'required',
+                'companyname' => 'required',
+                'award_amount' => 'required',
+            ]
+        );
+        if ($request->hasFile('companyimage')) {
+            $image_name = time() . $request->companyname . '.' . $request->file('companyimage')->getClientOriginalExtension();
+            if ($request->file('companyimage')->move('uploads', $image_name)) {
+                $question = Question::find($id);
+                $question->title = $request->get('title');
+                $question->description = $request->get('description');
+                $question->mode_of_response = $request->get('mode_of_response');
+                $question->companyimage = $image_name;
+                $question->companyname = $request->get('companyname');
+                $question->award_amount = $request->get('award_amount');
+                $question->save();
+
+            }
+        }
+
+        $question = Question::find($id);
+        $question->title = $request->get('title');
+        $question->description = $request->get('description');
+        $question->mode_of_response = $request->get('mode_of_response');
+        $question->companyname = $request->get('companyname');
+        $question->award_amount = $request->get('award_amount');
+        $question->save();
+        return view('questionslist', ['questions' => Question::all()]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     *@param string $id
      *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // $question=new Question::find($id);
-        // $question->delete();
-        return view('questionslist')->with('success', 'Question Deleted !');
+        $question = Question::find($id);
+        $question->delete();
+        return view('questionslist', ['questions' => Question::all()]);
     }
 }

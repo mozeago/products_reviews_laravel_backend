@@ -5,34 +5,32 @@
 <br>
 <br>
 <div class="table-responsive">
-    <h5 class="title">Question in Database</h5>
+    <h5 class="title">response in Database</h5>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Description</th>
-                <th scope="col">Mode of Response</th>
-                <th scope="col">Company Name</th>
-                <th scope="col">Award Amount</th>
+                <th scope="col">ID</th>
+                <th scope="col">User ID</th>
+                <th scope="col">Status</th>
                 <th scope="col">Created</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
             @php $index =0; @endphp
-            @foreach ($questions as $question)
+            @foreach ($response as $response)
             @php $index = ++$index; @endphp
             <tr>
                 <th scope="row"> {{$index }}</th>
-                <td>{{ $question->title }}</td>
-                <td>{{ $question->description }}</td>
-                <td>{{ $question->mode_of_response }}</td>
-                <td>{{ $question->companyname }}</td>
-                <td>{{ $question->award_amount }}</td>
-                <td>{{ $question->created_at }}</td>
+                <td>{{ $response->title }}</td>
+                <td>{{ $response->description }}</td>
+                <td>{{ $response->mode_of_response }}</td>
+                <td>{{ $response->companyname }}</td>
+                <td>{{ $response->award_amount }}</td>
+                <td>{{ $response->created_at }}</td>
                 <td>
-                    <a href="{{ route('question.edit',$question->id) }}"><svg class="bi bi-pencil-square success"
+                    <a href="{{ route('response.edit',$response->id) }}"><svg class="bi bi-pencil-square success"
                             width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -41,7 +39,7 @@
                                 d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z"
                                 clip-rule="evenodd" />
                         </svg></a>
-                    <form method="POST" action="{{ route('question.destroy',$question->id) }}">
+                    <form method="POST" action="{{ route('response.destroy',$response->id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger"><svg class="bi bi-trash" width="1em" height="1em"

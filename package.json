@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "axios": "^0.19",
+        "babel-plugin-component": "^1.1.1",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
         "jquery": "^3.2",
@@ -23,6 +24,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "bootstrap-icons": "^1.0.0-alpha3"
+        "bootstrap-icons": "^1.0.0-alpha3",
+        "element-ui": "^2.13.2"
     }
 }

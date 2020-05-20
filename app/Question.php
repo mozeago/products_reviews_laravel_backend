@@ -6,7 +6,7 @@ use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    protected $fillable=[
+    protected $fillable = [
         'title',
         'description',
         'mode_of_response',
@@ -14,4 +14,9 @@ class Question extends Model
         'companyname',
         'award_amount',
     ];
+
+    public function responses()
+    {
+        return $this->hasMany('App\QuestionResponse');
+    }
 }
