@@ -17,10 +17,11 @@ class CreateQuestionResponsesTable extends Migration
             $table->uuid('id')->primary();
             $table->string('user_id')->references('id')->on('users');
             $table->string('question_id')->references('id')->on('questions');
-            $table->string('status');
+            $table->enum('status', ['waiting', 'approved', 'awarded'])->default('waiting');
             $table->string('video_url');
             $table->timestamps();
         });
+
     }
 
     /**

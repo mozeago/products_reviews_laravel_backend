@@ -35,4 +35,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function questions()
+    {
+        return $this->hasMany('App\Question');
+    }
 }

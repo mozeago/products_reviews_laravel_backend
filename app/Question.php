@@ -14,9 +14,22 @@ class Question extends Model
         'companyname',
         'award_amount',
     ];
-
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function responses()
     {
         return $this->hasMany('App\QuestionResponse');
+    }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function users()
+    {
+        return $this->belongsTo('App\User');
     }
 }

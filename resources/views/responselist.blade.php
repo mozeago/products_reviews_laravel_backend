@@ -23,11 +23,9 @@
             @php $index = ++$index; @endphp
             <tr>
                 <th scope="row"> {{$index }}</th>
-                <td>{{ $response->title }}</td>
-                <td>{{ $response->description }}</td>
-                <td>{{ $response->mode_of_response }}</td>
-                <td>{{ $response->companyname }}</td>
-                <td>{{ $response->award_amount }}</td>
+                <td>{{ $response->id }}</td>
+                <td>{{ $response->user_id }}</td>
+                <td>{{ $response->status }}</td>
                 <td>{{ $response->created_at }}</td>
                 <td>
                     <a href="{{ route('response.edit',$response->id) }}"><svg class="bi bi-pencil-square success"
