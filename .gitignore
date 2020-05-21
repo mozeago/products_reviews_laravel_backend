@@ -36,6 +36,8 @@ yarn.lock
 /node_modules
 /public/hot
 /public/storage
+/public/responses
+/public/uploads
 /storage/*.key
 /vendor
 /storage/debugbar
