@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "bootstrap-icons": "^1.0.0-alpha3",
-        "element-ui": "^2.13.2"
+        "element-ui": "^2.13.2",
+        "npm-sass": "^2.3.0"
     }
 }
